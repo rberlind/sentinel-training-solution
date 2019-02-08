@@ -15,7 +15,7 @@ keys = get_access_keys()
 use_pgp = rule {
   all keys as _, instances {
     all instances as index, r {
-  	  #(length(r.applied.pgp_key) > 0) else false
+      #(length(r.applied.pgp_key) > 0) else false
       #(length(r.applied.pgp_key) else 0) > 0
       (r.applied.pgp_key matches "keybase(.*)") else false
       #"pgp_key" in r.applied
