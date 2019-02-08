@@ -1,0 +1,26 @@
+import "tfplan"
+
+# Get all AWS aws_acm_certificate data sources from all modules
+get_acm_certs = func() {
+  certs = []
+  for tfplan.state.module_paths as path {
+    certs += values(tfplan.state.module(path).data.aws_acm_certificate) else []
+  }
+  return certs
+}
+
+acm_certs = get_acm_certs()
+
+# Rule to restrict ACM certs
+restrict_acm_certs = rule {
+  all acm_certs as _, certs {
+    all certs as index, c {
+      c.attr.domain matches "(.*).hashidemos\\.io"
+    }
+  }
+}
+
+# Main rule that requires other rules to be true
+main = rule {
+  (restrict_acm_certs) else true
+}

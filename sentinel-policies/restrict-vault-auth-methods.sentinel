@@ -1,0 +1,36 @@
+import "tfplan"
+
+# Get all Vault auth backends (methods) from all modules
+get_vault_auth_methods = func() {
+  auth_methods = []
+  for tfplan.module_paths as path {
+    auth_methods += values(tfplan.module(path).resources.vault_auth_backend) else []
+  }
+  return auth_methods
+}
+
+# Allowed Auth Methods
+allowed_methods = [
+  "aws",
+  "azure",
+  "gcp",
+  "kubernetes",
+  "github",
+  "approle",
+]
+
+auth_methods = get_vault_auth_methods()
+
+# Rule to restrict instance types
+auth_method_allowed = rule {
+  all auth_methods as _, methods {
+    all methods as _, m {
+  	  m.applied.type in allowed_methods
+    }
+  }
+}
+  
+# Main rule that requires other rules to be true
+main = rule {
+  (auth_method_allowed) else true
+}

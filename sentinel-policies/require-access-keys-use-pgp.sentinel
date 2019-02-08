@@ -1,0 +1,29 @@
+import "tfplan"
+
+# Get all AWS access keys from all modules
+get_access_keys = func() {
+  keys = []
+  for tfplan.module_paths as path {
+    keys += values(tfplan.module(path).resources.aws_iam_access_key) else []
+  }
+  return keys
+}
+
+keys = get_access_keys()
+
+# Rule to restrict AWS access keys
+use_pgp = rule {
+  all keys as _, instances {
+    all instances as index, r {
+  	  #(length(r.applied.pgp_key) > 0) else false
+      #(length(r.applied.pgp_key) else 0) > 0
+      (r.applied.pgp_key matches "keybase(.*)") else false
+      #"pgp_key" in r.applied
+    }
+  }
+}
+
+# Main rule that requires other rules to be true
+main = rule {
+  (use_pgp) else true
+}
