@@ -11,14 +11,25 @@ get_acm_certs = func() {
 
 acm_certs = get_acm_certs()
 
-# Rule to restrict ACM certs
+# Rule to restrict ACM certs that prints all domains until first failure
 restrict_acm_certs = rule {
   all acm_certs as _, certs {
     all certs as index, c {
-      c.attr.domain matches "(.*).hashidemos\\.io"
+      print( "Found certificate with domain: ", c.attr.domain) and
+      c.attr.domain matches "(.+)\\.hashidemos\\.io$"
     }
   }
 }
+    
+# Rule to restrict ACM certs that only print violators
+/*restrict_acm_certs = rule {
+  not (any acm_certs as _, certs {
+    any certs as index, c {
+      (c.attr.domain not matches "(.+)\\.hashidemos\\.io$") and
+      print( "Found certificate with domain: ", c.attr.domain)
+    }
+  })
+}*/
 
 # Main rule that requires other rules to be true
 main = rule {
