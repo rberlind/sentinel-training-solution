@@ -1,4 +1,5 @@
 import "tfplan"
+import "strings"
 
 # Get all AWS access keys from all modules
 get_access_keys = func() {
