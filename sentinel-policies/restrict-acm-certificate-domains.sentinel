@@ -12,7 +12,7 @@ get_acm_certs = func() {
 # Call function
 acm_certs = get_acm_certs()
 
-# Rule to restrict ACM certs that prints all domains until first failure
+# Rule to restrict ACM certs that prints all domains until after first failure
 restrict_acm_certs = rule {
   all acm_certs as _, certs {
     all certs as index, c {
