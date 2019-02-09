@@ -1,4 +1,5 @@
 import "tfplan"
+import "strings"
 
 # Get all AWS aws_acm_certificate data sources from all modules
 get_acm_certs = func() {
@@ -17,7 +18,8 @@ restrict_acm_certs = rule {
   all acm_certs as _, certs {
     all certs as index, c {
       print( "Found certificate with domain: ", c.attr.domain) and
-      c.attr.domain matches "(.+)\\.hashidemos\\.io$"
+      #c.attr.domain matches "(.+)\\.hashidemos\\.io$"
+      strings.has_suffix(c.attr.domain else "", ".hashidemos.io")
     }
   }
 }

@@ -17,20 +17,16 @@ keys = get_access_keys()
 use_pgp = rule {
   all keys as _, instances {
     all instances as index, r {
-      # 1
       print("pgp_key is: ", r.applied.pgp_key) and
+      # 1
       (length(r.applied.pgp_key) > 0) else false
       # 2
-      #print("pgp_key is: ", r.applied.pgp_key) and
       #(length(r.applied.pgp_key) else 0) > 0
       # 3
-      #print("pgp_key is: ", r.applied.pgp_key) and
       #(r.applied.pgp_key matches "^keybase:(.*)") else false
       # 4
-      #print("pgp_key is: ", r.applied.pgp_key) and
       #(strings.has_prefix(r.applied.pgp_key else "", "keybase:")) else false
       # 5
-      #print("pgp_key is: ", r.applied.pgp_key) and
       #"pgp_key" in r.applied
     }
   }
