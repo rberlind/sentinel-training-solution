@@ -19,13 +19,15 @@ allowed_methods = [
   "approle",
 ]
 
+# Call function
 auth_methods = get_vault_auth_methods()
 
 # Rule to restrict instance types
 auth_method_allowed = rule {
   all auth_methods as _, methods {
     all methods as _, m {
-  	  m.applied.type in allowed_methods
+      print("Vault auth type: ", m.applied.type) and
+      m.applied.type in allowed_methods
     }
   }
 }
