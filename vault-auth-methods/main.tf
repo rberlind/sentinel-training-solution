@@ -1,12 +1,15 @@
-variable "type" {
-  description = "type of Vault auth method"
+variable "types" {
+  description = "types of Vault auth methods"
+  type = "list"
 }
 
-variable "path" {
-  description = "path to Vault auth method"
+variable "paths" {
+  description = "paths to Vault auth methods"
+  type = "list"
 }
 
 resource "vault_auth_backend" "test" {
-  type = "${var.type}"
-  path = "${var.path}"
+  count = "${length(var.paths)}"
+  type = "${var.types[count.index]}"
+  path = "${var.paths[count.index]}"
 }
