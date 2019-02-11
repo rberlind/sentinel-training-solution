@@ -1,0 +1,6 @@
+{
+  "mock": {
+    "tfconfig": "mock-tfconfig-azure-modules-test.sentinel"
+  }
+}
+

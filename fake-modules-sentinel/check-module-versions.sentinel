@@ -1,0 +1,16 @@
+import "tfconfig"
+import "strings"
+
+# Require all modules directly under root module
+# to have version 1.0.1
+check_module_version  = rule { 
+  all tfconfig.modules as _, m {
+    print("source: ", m.source, ", version: ", m.version) and
+    m.version == "1.0.1"
+  }
+}
+  
+# Main rule that requires other rules to be true
+main = rule {
+  (check_module_version) else true
+}
