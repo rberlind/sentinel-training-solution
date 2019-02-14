@@ -27,5 +27,3 @@ resource "aws_acm_certificate" "new_cert" {
   }
 
 }
-
-}
