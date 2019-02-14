@@ -8,8 +8,10 @@ variable "domain_2" {
 
 data "aws_acm_certificate" "cert_1" {
   domain = "${var.domain_1}"
+  types = ["AMAZON_ISSUED", "IMPORTED"]
 }
 
 data "aws_acm_certificate" "cert_2" {
   domain = "${var.domain_2}"
+  types = ["AMAZON_ISSUED", "IMPORTED"]
 }
