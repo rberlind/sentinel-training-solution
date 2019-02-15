@@ -26,11 +26,10 @@ restrict_acm_certs = rule {
     
 # Rule to restrict ACM certs that only print violators
 /*restrict_acm_certs = rule {
-  not (any acm_certs as _, certs {
-    any certs as index, c {
-      print( "Before: Found certificate with domain: ", c.attr.domain) and
-      (c.attr.domain not matches "(.+)\\.hashidemos\\.io$") and
-      print( "After: Found certificate with domain: ", c.attr.domain)
+  all acm_certs as _, certs {
+    all certs as index, c {
+      c.attr.domain not matches "(.+)\\.hashidemos\\.io$" or
+      print( "Found certificate with domain: ", c.attr.domain)
     }
   })
 }*/

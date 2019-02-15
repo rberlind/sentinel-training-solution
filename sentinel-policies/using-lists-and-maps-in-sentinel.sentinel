@@ -1,0 +1,93 @@
+### This policy illustrates how to access members of lists and maps ###
+### We illustrate accessing them both outside and inside rules ###
+
+# Printing "c.applied" for an instance of aws_acm_certificate
+# gives something like this structure that has one list and one map.
+# The list is "subject_alternative_names" (with three members)
+# The map is "tags" (with two two key/value pairs)
+/*{
+  "arn": "74D93920-ED26-11E3-AC10-0800200C9A66",
+  "domain_name": "roger.hashidemos.io",
+  "domain_validation_options": "74D93920-ED26-11E3-AC10-0800200C9A66",
+  "id": "74D93920-ED26-11E3-AC10-0800200C9A66",
+  "subject_alternative_names": [
+    "roger1.hashidemos.io",
+    "roger2.hashidemos.io",
+    "roger3.hashidemos.io"
+  ],
+  "tags": {
+    "owner": "roger",
+    "ttl": "24"
+  },
+  "validation_emails": "74D93920-ED26-11E3-AC10-0800200C9A66",
+  "validation_method": "DNS"
+}*/
+
+import "tfplan"
+
+# Get all ACM certificates in root modules
+acm_certs = tfplan.resources.aws_acm_certificate
+  
+# Print from a list
+for acm_certs as _, certs {
+  for certs as _, c {
+    for c.applied.subject_alternative_names as san {
+      print("List member in For Loop:", san)
+    }
+  }
+}  
+
+# Print from a list using indexing
+for acm_certs as _, certs {
+  for certs as _, c {
+    for [0, 1, 2] as num {
+      print("List indexed member in For Loop:", c.applied.subject_alternative_names[num])
+    }
+  }
+}
+
+# Print from a map
+for acm_certs as _, certs {
+  for certs as _, c {
+    for c.applied.tags as k, v {
+      print("Map in For Loop: key:", k, ", value:", v)
+    }
+  }
+}
+
+# Rule that prints members of a list
+print_acm_sans = rule {
+  all acm_certs as _, certs {
+    all certs as index, c {
+      all c.applied.subject_alternative_names as san {
+        print( "List member in Rule:", san)
+      }
+    }
+  }
+}
+    
+# Rule that prints key/value pairs from a map
+print_acm_tags = rule {
+  all acm_certs as _, certs {
+    all certs as index, c {
+      all c.applied.tags as k, v {
+        print( "Map in Rule: key:", k, ", value:", v )
+      }
+    }
+  }
+}
+    
+# Rule to restrict value for specific key of a map
+restrict_acm_ttl = rule {
+  all acm_certs as _, certs {
+    all certs as index, c {
+      c.applied.tags.ttl is "24"
+      #c.applied.tags["ttl"] is "24"
+    }
+  }
+}
+    
+# Main rule that requires other rules to be true
+main = rule {
+  (print_acm_sans and print_acm_tags and restrict_acm_ttl) else true
+}

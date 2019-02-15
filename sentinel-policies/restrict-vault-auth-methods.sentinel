@@ -11,9 +11,7 @@ get_vault_auth_methods = func() {
 
 # Allowed Auth Methods
 allowed_methods = [
-  "aws",
   "azure",
-  "gcp",
   "kubernetes",
   "github",
   "approle",
