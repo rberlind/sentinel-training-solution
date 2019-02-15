@@ -16,6 +16,11 @@ variable "instance_name" {
   default = "demo"
 }
 
+variable "image" {
+  description = "GCP image"
+  default = "debian-cloud/debian-9"
+}
+
 provider "google" {
   credentials = "${var.gcp_credentials}"
   project     = "${var.gcp_project}"
@@ -29,7 +34,7 @@ resource "google_compute_instance" "demo" {
 
   boot_disk {
     initialize_params {
-      image = "debian-cloud/debian-9"
+      image = "${var.image}"
     }
   }
 
