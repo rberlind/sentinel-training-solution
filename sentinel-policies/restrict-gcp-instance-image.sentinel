@@ -1,0 +1,24 @@
+import "tfplan"
+
+get_vms = func() {
+  vms = []
+  for tfplan.module_paths as path {
+    vms += values(tfplan.module(path).resources.google_compute_instance) else []
+  }
+  return vms
+}
+
+vms = get_vms()
+  
+image_allowed = rule {
+  all vms as _, instances {
+    all instances as _, r {
+      print("image:", r.applied.boot_disk[0].initialize_params[0].image) and
+  	  r.applied.boot_disk[0].initialize_params[0].image is "debian-cloud/debian-8"
+    }
+  }
+}
+
+main = rule {
+  (image_allowed) else true
+}
