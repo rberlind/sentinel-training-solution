@@ -1,6 +1,6 @@
 {
   "mock": {
-    "tfconfig": "mock-tfconfig-fake-modules.mock"
+    "tfconfig": "tfconfig-fake-modules.mock"
   }
 }
 
