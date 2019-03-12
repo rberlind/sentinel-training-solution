@@ -1,6 +1,6 @@
 {
   "mock": {
-    "tfconfig": "mock-tfconfig-fail.sentinel"
+    "tfconfig": "tfconfig-fail.mock"
   },
   "test": {
     "main": false
