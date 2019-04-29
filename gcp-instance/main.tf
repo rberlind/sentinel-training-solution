@@ -32,7 +32,7 @@ resource "google_compute_instance" "demo" {
   machine_type = "${var.machine_type}"
   zone         = "us-east1-b"
 
- boot_disk {
+  boot_disk {
     initialize_params {
       image = "${var.image}"
     }
