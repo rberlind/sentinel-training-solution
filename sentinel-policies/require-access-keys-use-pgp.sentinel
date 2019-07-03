@@ -1,3 +1,5 @@
+# Policy that requires AWS access keys to use PGP keys
+
 ##### Imports #####
 
 import "tfplan"
@@ -36,7 +38,7 @@ find_resources_from_plan = func(type) {
   return resources
 }
 
-#Function to require AWS IAM Access Keys have pgp_key
+# Function to require AWS IAM Access Keys have pgp_key
 validate_keys = func() {
 
   validated = true

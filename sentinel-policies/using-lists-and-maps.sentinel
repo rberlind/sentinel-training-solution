@@ -27,7 +27,7 @@ import "tfplan"
 
 # Get all ACM certificates in root modules
 acm_certs = tfplan.resources.aws_acm_certificate
-  
+
 # Print from a list
 for acm_certs as _, certs {
   for certs as _, c {
@@ -35,7 +35,7 @@ for acm_certs as _, certs {
       print("List member in For Loop:", san)
     }
   }
-}  
+}
 
 # Print from a list using indexing
 for acm_certs as _, certs {
@@ -65,7 +65,7 @@ print_acm_sans = rule {
     }
   }
 }
-    
+
 # Rule that prints key/value pairs from a map
 print_acm_tags = rule {
   all acm_certs as _, certs {
@@ -76,7 +76,7 @@ print_acm_tags = rule {
     }
   }
 }
-    
+
 # Rule to restrict value for specific key of a map
 restrict_acm_ttl = rule {
   all acm_certs as _, certs {
@@ -86,8 +86,8 @@ restrict_acm_ttl = rule {
     }
   }
 }
-    
+
 # Main rule that requires other rules to be true
 main = rule {
-  (print_acm_sans and print_acm_tags and restrict_acm_ttl) else true
+  print_acm_sans and print_acm_tags and restrict_acm_ttl
 }
