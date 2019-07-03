@@ -1,12 +1,20 @@
 import "tfplan"
 
-# Get all Vault auth backends (methods) from all modules
-get_vault_auth_methods = func() {
-  auth_methods = []
+# Find all resources of a specific type
+# from all modules using the tfplan import
+find_resources_from_plan = func(type) {
+
+  # Start with an empty list
+  resources = []
+
+  # Iterate over all modules in the tfplan import
   for tfplan.module_paths as path {
-    auth_methods += values(tfplan.module(path).resources.vault_auth_backend) else []
+    # Append all resources of the specified type
+    # or the empty map, {}, if the module does not have any
+    append(resources, tfplan.module(path).resources[type] else {})
   }
-  return auth_methods
+
+  return resources
 }
 
 # Allowed Auth Methods
@@ -18,14 +26,16 @@ allowed_methods = [
 ]
 
 # Call function
-auth_methods = get_vault_auth_methods()
+resource_maps = find_resources_from_plan("vault_auth_method")
 
 # Rule to restrict instance types
 auth_method_allowed = rule {
-  all auth_methods as _, methods {
-    all methods as _, m {
-      print("Vault auth type: ", m.applied.type) and
-      m.applied.type in allowed_methods
+  resource_maps as resource_map {
+    all resource_map as name, methods {
+      all methods as index, m {
+        print("Vault auth method", name, "has type: ", m.applied.type) and
+        m.applied.type in allowed_methods
+      }
     }
   }
 }
