@@ -1,40 +1,75 @@
-import "tfplan"
+# This function uses the tfstate import to restrict ACM certificates
+# to have domains that are sub-domains of hashidemos.io
+
+##### Imports #####
+import "tfstate"
 import "strings"
 
-# Get all AWS aws_acm_certificate data sources from all modules
-get_acm_certs = func() {
-  certs = []
-  for tfplan.state.module_paths as path {
-    certs += values(tfplan.state.module(path).data.aws_acm_certificate) else []
-  }
-  return certs
-}
+##### Functions #####
 
-# Call function
-acm_certs = get_acm_certs()
+# Find all resources of specific type from all modules using the tfstate import
+find_data_sources_from_state = func(type) {
 
-# Rule to restrict ACM certs that prints all domains until after first failure
-restrict_acm_certs = rule {
-  all acm_certs as _, certs {
-    all certs as index, c {
-      print( "Found certificate with domain: ", c.attr.domain) and
-      #c.attr.domain matches "(.+)\\.hashidemos\\.io$"
-      strings.has_suffix(c.attr.domain else "", ".hashidemos.io")
+  data_sources = {}
+
+  # Iterate over all modules in the tfstate import
+  for tfstate.module_paths as path {
+    # Iterate over the named data sources of desired type in the module
+    for tfstate.module(path).data[type] else {} as name, instances {
+      # Iterate over data source instances
+      for instances as index, d {
+
+        # Get the address of the instance
+        if length(path) == 0 {
+          # root module
+          address = type + "." + name + "[" + string(index) + "]"
+        } else {
+          # non-root module
+          address = "module." + strings.join(path, ".module.") + "." +
+                    type + "." + name + "[" + string(index) + "]"
+        }
+
+        # Add the instance to resources map, setting the key to the address
+        data_sources[address] = d
+      }
     }
   }
-}
-    
-# Rule to restrict ACM certs that only print violators
-/*restrict_acm_certs = rule {
-  all acm_certs as _, certs {
-    all certs as index, c {
-      c.attr.domain not matches "(.+)\\.hashidemos\\.io$" or
-      print( "Found certificate with domain: ", c.attr.domain)
-    }
-  })
-}*/
 
-# Main rule that requires other rules to be true
+  return data_sources
+}
+
+# Function that validates ACM certs
+validate_certs = func() {
+
+  validated = true
+
+  # Get all resource instances of the specified type
+  data_source_instances = find_data_sources_from_state("aws_acm_certificate")
+
+  # Loop through the resource instances
+  # Showing 2 solutions with just the first enabled
+  for data_source_instances as address, d {
+    # Validate that access key has PGP key
+    # 1
+    if d.attr.domain else "" matches "(.+)\\.hashidemos\\.io$" {
+    # 2
+    # if strings.has_suffix(d.attr.domain else "", ".hashidemos.io") {
+      print("ACM cert", address, "has domain", d.attr.domain,
+            "that is a sub-domain of hashidemos.io")
+    } else {
+      print("ACM cert", address, "has domain", d.attr.domain else "",
+            "that is not a sub-domain of hashidemos.io or is missing")
+      validated = false
+    } // end if/else
+  } //end for
+
+  return validated
+
+}
+
+##### Rules #####
+
+# Main rule that calls the validation function and evaluates results
 main = rule {
-  (restrict_acm_certs) else true
+  validate_certs()
 }
