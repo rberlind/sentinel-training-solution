@@ -1,3 +1,3 @@
-# Solution for Sentinel Training
+# Solutions for Sentinel Training
 
-This repository contains solutions for my Sentinel training course
+This repository contains solutions for my Sentinel guide.
