@@ -66,8 +66,10 @@ validate_images = func() {
 
 ##### Rules #####
 
-valid_image = validate_images()
-# Main rule that calls validation function and evaluates results
+# Call the validation function and assign result
+images_validated = validate_images()
+
+# Main rule that that evaluates the result of the validation function
 main = rule {
-  valid_image
+  images_validated
 }

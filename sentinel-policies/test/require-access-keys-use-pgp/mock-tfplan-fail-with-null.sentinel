@@ -10,7 +10,7 @@ _modules = {
 				"roger": {
 					0: {
 						"applied": {
-							"pgp_key": "keybase:roger",
+							"pgp_key": null,
 							"user":    "roger",
 						},
 						"diff": {},

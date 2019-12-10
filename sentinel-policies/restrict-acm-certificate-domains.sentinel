@@ -69,7 +69,10 @@ validate_certs = func() {
 
 ##### Rules #####
 
-# Main rule that calls the validation function and evaluates results
+# Call the validation function
+certs_validated = validate_certs()
+
+# Main rule that evaluates the result of the validation function
 main = rule {
-  validate_certs()
+  certs_validated
 }

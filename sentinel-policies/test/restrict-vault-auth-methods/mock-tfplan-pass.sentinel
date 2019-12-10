@@ -16,53 +16,6 @@ _modules = {
 							"path":               "roger-k8s",
 							"type":               "kubernetes",
 						},
-						"diff": {
-							"accessor": {
-								"computed": true,
-								"new":      "",
-								"old":      "",
-							},
-							"default_lease_ttl_seconds": {
-								"computed": true,
-								"new":      "",
-								"old":      "",
-							},
-							"description": {
-								"computed": false,
-								"new":      "",
-								"old":      "",
-							},
-							"id": {
-								"computed": true,
-								"new":      "",
-								"old":      "",
-							},
-							"listing_visibility": {
-								"computed": false,
-								"new":      "",
-								"old":      "",
-							},
-							"local": {
-								"computed": false,
-								"new":      "",
-								"old":      "",
-							},
-							"max_lease_ttl_seconds": {
-								"computed": true,
-								"new":      "",
-								"old":      "",
-							},
-							"path": {
-								"computed": false,
-								"new":      "roger-k8s",
-								"old":      "",
-							},
-							"type": {
-								"computed": false,
-								"new":      "kubernetes",
-								"old":      "",
-							},
-						},
 					},
 					1: {
 						"applied": {
@@ -72,53 +25,6 @@ _modules = {
 							"path":               "roger-gh",
 							"type":               "github",
 						},
-						"diff": {
-							"accessor": {
-								"computed": true,
-								"new":      "",
-								"old":      "",
-							},
-							"default_lease_ttl_seconds": {
-								"computed": true,
-								"new":      "",
-								"old":      "",
-							},
-							"description": {
-								"computed": false,
-								"new":      "",
-								"old":      "",
-							},
-							"id": {
-								"computed": true,
-								"new":      "",
-								"old":      "",
-							},
-							"listing_visibility": {
-								"computed": false,
-								"new":      "",
-								"old":      "",
-							},
-							"local": {
-								"computed": false,
-								"new":      "",
-								"old":      "",
-							},
-							"max_lease_ttl_seconds": {
-								"computed": true,
-								"new":      "",
-								"old":      "",
-							},
-							"path": {
-								"computed": false,
-								"new":      "roger-gh",
-								"old":      "",
-							},
-							"type": {
-								"computed": false,
-								"new":      "github",
-								"old":      "",
-							},
-						},
 					},
 					2: {
 						"applied": {
@@ -127,53 +33,6 @@ _modules = {
 							"local":              null,
 							"path":               "roger-azure",
 							"type":               "azure",
-						},
-						"diff": {
-							"accessor": {
-								"computed": true,
-								"new":      "",
-								"old":      "",
-							},
-							"default_lease_ttl_seconds": {
-								"computed": true,
-								"new":      "",
-								"old":      "",
-							},
-							"description": {
-								"computed": false,
-								"new":      "",
-								"old":      "",
-							},
-							"id": {
-								"computed": true,
-								"new":      "",
-								"old":      "",
-							},
-							"listing_visibility": {
-								"computed": false,
-								"new":      "",
-								"old":      "",
-							},
-							"local": {
-								"computed": false,
-								"new":      "",
-								"old":      "",
-							},
-							"max_lease_ttl_seconds": {
-								"computed": true,
-								"new":      "",
-								"old":      "",
-							},
-							"path": {
-								"computed": false,
-								"new":      "roger-azure",
-								"old":      "",
-							},
-							"type": {
-								"computed": false,
-								"new":      "azure",
-								"old":      "",
-							},
 						},
 					},
 				},

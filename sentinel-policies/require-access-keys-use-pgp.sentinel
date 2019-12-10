@@ -51,15 +51,17 @@ validate_keys = func() {
   for resource_instances as address, r {
     # Validate that access key has PGP key
     # 1
-    if (length(r.applied.pgp_key) > 0) else false {
+    if r.applied.pgp_key else null not in ["", null] {
     # 2
-    # if (length(r.applied.pgp_key) else 0) > 0 {
+    # if r.applied.pgp_key else "" not in ["", null] {
     # 3
-    # if (r.applied.pgp_key matches "^keybase:(.*)") else false {
+    # if r.applied.pgp_key else "" is not "" and r.applied.pgp_key else null is not null {
     # 4
-    # if strings.has_prefix(r.applied.pgp_key else "", "keybase:") else false {
-    # 5
-    # if "pgp_key" in r.applied {
+    # if r.applied.pgp_key else null is not null and r.applied.pgp_key else "" is not "" {
+    # 5 (if you also want to validate that the pgp_key matches "^keybase:(.*)")
+    # if r.applied.pgp_key else null not in ["", null] and r.applied.pgp_key matches "^keybase:(.*)" {
+    # 6 (if you also want to validate that the pgp_key starts with "keybase:")
+    # if r.applied.pgp_key else null not in ["", null] and strings.has_prefix(r.applied.pgp_key, "keybase:") {
       print("Access key", address, "has pgp_key", r.applied.pgp_key)
     } else {
       print("Access key", address, "does not have the pgp_key attribute set")
@@ -73,7 +75,10 @@ validate_keys = func() {
 
 ##### Rules #####
 
-# Main rule that calls the validation function and evaluates results
+# Call the validation function
+keys_validated = validate_keys()
+
+# Main rule that evaluates the result of the validation function
 main = rule {
-  validate_keys()
+  keys_validated
 }
