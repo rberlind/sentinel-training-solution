@@ -2,8 +2,13 @@
   "param": {
     "organization": "Cloud-Operations"
   },
+  "modules": {
+    "modules": {
+      "path": "../../module-functions.sentinel"
+    }
+  },
   "mock": {
-    "tfconfig": "mock-tfconfig-pass.sentinel"
+    "tfconfig/v2": "mock-tfconfig-pass.sentinel"
   },
   "test": {
     "main": true
