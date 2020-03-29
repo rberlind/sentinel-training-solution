@@ -23,7 +23,7 @@ validate_certs = func(certs, parent_domain) {
     # Check if domain is sub-domain of parent domain, using strings import
     if domain matches parent_domain {
       print(address, "has domain", domain,
-            "that does not match the regex", parent_domain)
+            "that matches the regex", parent_domain)
     } else {
       print(address, "has domain", domain,
             "that does not match the regex", parent_domain, "or is missing")
