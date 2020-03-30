@@ -11,7 +11,7 @@ require_modules_from_pmr = func(tf_address, organization) {
 
   validated = true
 
-  # Iterate over all module calls from the root module.
+  # Iterate over all modules but focus on calls from the root module.
   # A module call represents one module referencing another module
   # with a module block.
   for tfconfig.module_calls as index, mc {
