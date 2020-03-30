@@ -15,9 +15,13 @@ require_modules_from_pmr = func(tf_address, organization) {
   # A module call represents one module referencing another module
   # with a module block.
   for tfconfig.module_calls as index, mc {
-    # Ignore modules with index matching "module.<address>:<name>"
+    # Ignore modules with index matching "<address>:<name>"
     # since these are not called from the root module.
-    if index not matches "^module\\.(.+):(.+)" {
+    # Since <address> would start with "module." for a non-root module,
+    # we could look for indices that do not match "^module\\.(.+):(.+)"
+    if index not matches "(.+):(.+)" {
+    # The following line could be used instead of the previous line
+    # if index matches "^[^:]*$" {
       if not strings.has_prefix(mc.source, tf_address + "/" + organization) {
         print("Your root module called the module", index, "with source", mc.source)
         validated = false
