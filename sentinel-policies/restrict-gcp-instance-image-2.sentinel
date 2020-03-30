@@ -22,9 +22,9 @@ filter_images = func(instances, image) {
   for instances as address, instance {
     # Set boot_disk variable
     boot_disk = instance.change.after.boot_disk
-    # Validate that boot_disk[0].initialize_params is present and a list
+    # Validate that the initialize_params block is present and a list
     # and that the image under it is allowed
-    # Add violators to violators and print warnings
+    # Add violators to the violators list and print warnings
     if types.type_of(boot_disk[0].initialize_params) is not "list" {
       violators[address] = instance
       print(address, "does not have image defined: it should be debian-cloud/debian-9")
