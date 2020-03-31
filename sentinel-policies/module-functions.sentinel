@@ -7,7 +7,7 @@ import "strings"
 ##### Functions #####
 
 # Require all modules directly under root module to come from PMR
-require_modules_from_pmr = func(tf_address, organization) {
+require_modules_from_pmr = func(tf_address, tf_org) {
 
   validated = true
 
@@ -22,7 +22,7 @@ require_modules_from_pmr = func(tf_address, organization) {
     if index not matches "(.+):(.+)" {
     # The following line could be used instead of the previous line
     # if index matches "^[^:]*$" {
-      if not strings.has_prefix(mc.source, tf_address + "/" + organization) {
+      if not strings.has_prefix(mc.source, tf_address + "/" + tf_org) {
         print("Your root module called the module", index, "with source", mc.source)
         validated = false
       } // end second if
@@ -31,7 +31,7 @@ require_modules_from_pmr = func(tf_address, organization) {
 
   if not validated {
     print("All modules called from the root module must come from the",
-          "private module registry", tf_address + "/" + organization)
+          "private module registry", tf_address + "/" + tf_org)
   }
 
   return validated
