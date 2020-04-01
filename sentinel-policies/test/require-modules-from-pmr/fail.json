@@ -3,7 +3,7 @@
     "organization": "Cloud-Operations"
   },
   "modules": {
-    "modules": {
+    "module-functions": {
       "path": "../../module-functions.sentinel"
     }
   },

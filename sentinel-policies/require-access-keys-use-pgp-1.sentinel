@@ -4,7 +4,7 @@
 import "tfplan/v2" as tfplan
 
 # Import common-functions/tfplan-functions.sentinel with alias "plan"
-import "plan"
+import "tfplan-functions" as "plan"
 
 # Get all AWS IAM access keys
 allIAMAccessKeys = plan.find_resources("aws_iam_access_key")
