@@ -6,7 +6,7 @@
 import "tfconfig/v2" as tfconfig
 
 # Import module-functions.sentinel as "modules"
-import "module-functions" as "modules"
+import "module-functions" as modules
 
 ##### Parameters #####
 # The address of the TFC or TFE server
