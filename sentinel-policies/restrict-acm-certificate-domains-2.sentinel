@@ -5,7 +5,7 @@
 import "tfstate/v2" as tfstate
 
 # Import common-functions/tfstate-functions.sentinel with alias "state"
-import "tfstate-functions" as "state"
+import "tfstate-functions" as state
 
 # Get all AWS ACM certs
 allACMCerts = state.find_datasources("aws_acm_certificate")
