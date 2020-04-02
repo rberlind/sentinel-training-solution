@@ -1,5 +1,5 @@
 module "tfplan-functions" {
-    source = "./common-functions/tfplan-functions.sentinel"
+    source = "common-functions/tfplan-functions.sentinel"
 }
 
 policy "require-even-number" {
