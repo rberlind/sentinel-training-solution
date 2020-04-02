@@ -7,7 +7,7 @@ module "tfstate-functions" {
 }
 
 module "module-functions" {
-    source = "./module-functions.sentinel"
+    source = "./common-functions/module-functions.sentinel"
 }
 
 policy "require-even-number" {
