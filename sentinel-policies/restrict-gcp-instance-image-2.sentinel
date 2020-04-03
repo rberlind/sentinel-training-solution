@@ -27,11 +27,11 @@ filter_images = func(instances, image) {
     # Add violators to the violators list and print warnings
     if types.type_of(boot_disk[0].initialize_params) is not "list" {
       violators[address] = instance
-      print(address, "does not have image defined: it should be debian-cloud/debian-9")
-    } else if boot_disk[0].initialize_params[0].image is not "debian-cloud/debian-9" {
+      print(address, "does not have image defined: it should be", image)
+    } else if boot_disk[0].initialize_params[0].image is not image {
       violators[address] = instance
       print(address, "has image", boot_disk[0].initialize_params[0].image,
-            "but is supposed to use debian-cloud/debian-9")
+            "but is supposed to use", image)
     } // end if
   } // end for
 
