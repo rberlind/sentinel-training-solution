@@ -4,11 +4,11 @@
 # Import the v2 tfstate import, but use the alias "tfstate"
 import "tfstate/v2" as tfstate
 
-# Import common-functions/tfstate-functions.sentinel with alias "state"
-import "tfstate-functions" as state
-
 # Get all AWS ACM certs
-allACMCerts = state.find_datasources("aws_acm_certificate")
+allACMCerts = filter tfstate.resources as address, r {
+  r.type is "aws_acm_certificate" and
+  r.mode is "data"
+}
 
 # Filter to ACM certs that are not sub-domains of hashidemos.io
 violatingACMCerts = filter allACMCerts as address, cert {
