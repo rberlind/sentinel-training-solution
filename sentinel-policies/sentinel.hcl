@@ -2,6 +2,10 @@ module "tfplan-functions" {
     source = "common-functions/tfplan-functions.sentinel"
 }
 
+module "module-functions" {
+    source = "common-functions/module-functions.sentinel"
+}
+
 policy "require-even-number" {
     enforcement_level = "hard-mandatory"
 }
@@ -23,6 +27,10 @@ policy "restrict-gcp-instance-image-2" {
 }
 
 policy "require-modules-from-pmr-1" {
+    enforcement_level = "hard-mandatory"
+}
+
+policy "require-modules-from-pmr-2" {
     enforcement_level = "hard-mandatory"
 }
 
