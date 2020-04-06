@@ -18,6 +18,10 @@ policy "require-access-keys-use-pgp-2" {
     enforcement_level = "hard-mandatory"
 }
 
+policy "restrict-acm-certificate-domains-1" {
+    enforcement_level = "hard-mandatory"
+}
+
 policy "restrict-gcp-instance-image-1" {
     enforcement_level = "hard-mandatory"
 }
