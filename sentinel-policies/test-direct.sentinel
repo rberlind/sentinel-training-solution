@@ -1,0 +1,22 @@
+# This policy restricts which Vault auth methods can be created
+
+# Import the v2 tfplan import, but use the alias "tfplan"
+import "tfplan/v2" as tfplan
+
+# Allowed Vault Auth Methods
+allowed_methods = [
+  "azure",
+  "kubernetes",
+  "github",
+  "approle",
+]
+
+vault_types = []
+for [0, 1, 2] as i {
+  append(vault_types, tfplan.resource_changes["vault_auth_backend.test["+string(i)+"]"].change.after.type)
+}
+
+# Main rule
+main = rule {
+  print("Vault auth method types:", vault_types)
+}
