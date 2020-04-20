@@ -4,7 +4,7 @@
   },
   "modules": {
     "module-functions": {
-      "path": "../../module-functions.sentinel"
+      "path": "../../common-functions/module-functions.sentinel"
     }
   },
   "mock": {

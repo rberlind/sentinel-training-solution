@@ -1,6 +1,6 @@
 {
   "param": {
-    "the_number": <an_odd_number>
+    "the_number": 5
   },
   "test": {
     "main": false

@@ -10,12 +10,12 @@ import "tfplan-functions" as plan
 allIAMAccessKeys = plan.find_resources("aws_iam_access_key")
 
 # Filter to AWS IAM access keys with violations
-# The called function prints warnings for all violations
+# Prints warnings for all violations since last parameter is true
 violatingIAMAccessKeys = plan.filter_attribute_does_not_have_prefix(
-                         allIAMAccessKeys, "pgp_key", "keybase:")
+                         allIAMAccessKeys, "pgp_key", "keybase:", true)
 
 # Count violations
-violations = length(violatingIAMAccessKeys)
+violations = violatingIAMAccessKeys["length"]
 
 # Main rule
 main = rule {

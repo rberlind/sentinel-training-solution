@@ -18,12 +18,12 @@ allowed_methods = [
 allVaultAuthMethods = plan.find_resources("vault_auth_backend")
 
 # Filter to Vault auth methods with violations
-# Prints warnings for all violations
+# Prints warnings for all violations since last parameter is true
 violatingVaultAuthMethods =
-  plan.filter_attribute_not_in_list(allVaultAuthMethods, "type", allowed_methods)
+  plan.filter_attribute_not_in_list(allVaultAuthMethods, "type", allowed_methods, true)
 
 # Count violations
-violations = length(violatingVaultAuthMethods)
+violations = violatingVaultAuthMethods["length"]
 
 # Main rule
 main = rule {
