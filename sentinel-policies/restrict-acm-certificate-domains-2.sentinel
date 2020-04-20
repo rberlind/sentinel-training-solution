@@ -19,7 +19,7 @@ validate_certs = func(certs, parent_domain) {
   for certs as address, cert {
     # Validate that the domain is sub-domain of parent_domain
     # Use the matches operator
-    domain = cert.values.domain else ""
+    domain = cert.values.domain
     # Check if domain is sub-domain of parent domain, using strings import
     if domain matches parent_domain {
       print(address, "has domain", domain,

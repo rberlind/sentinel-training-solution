@@ -16,7 +16,7 @@ violatingGCPComputeInstances =
   "boot_disk.0.initialize_params.0.image", "debian-cloud/debian-9", true)
 
 # Count violations
-violations = violatingGCPComputeInstances["length"]
+violations = length(violatingGCPComputeInstances["messages"])
 
 # Main rule
 main = rule {

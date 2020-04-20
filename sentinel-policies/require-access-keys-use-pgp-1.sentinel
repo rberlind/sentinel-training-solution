@@ -15,7 +15,7 @@ violatingIAMAccessKeys = plan.filter_attribute_does_not_have_prefix(
                          allIAMAccessKeys, "pgp_key", "keybase:", true)
 
 # Count violations
-violations = violatingIAMAccessKeys["length"]
+violations = length(violatingIAMAccessKeys["messages"])
 
 # Main rule
 main = rule {
