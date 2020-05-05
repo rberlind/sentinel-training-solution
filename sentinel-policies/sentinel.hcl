@@ -1,13 +1,13 @@
 module "tfplan-functions" {
-    source = "common-functions/tfplan-functions.sentinel"
+    source = "common-functions/tfplan-functions/tfplan-functions.sentinel"
 }
 
 module "tfstate-functions" {
-    source = "common-functions/tfstate-functions.sentinel"
+    source = "common-functions/tfstate-functions/tfstate-functions.sentinel"
 }
 
 module "module-functions" {
-    source = "common-functions/module-functions.sentinel"
+    source = "common-functions/module-functions/module-functions.sentinel"
 }
 
 policy "require-even-number" {
