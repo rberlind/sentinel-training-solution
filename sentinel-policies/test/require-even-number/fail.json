@@ -1,8 +1,0 @@
-{
-  "param": {
-    "the_number": 5
-  },
-  "test": {
-    "main": false
-  }
-}

@@ -6,3 +6,4 @@ terraform.tfvars
 azure-modules-test/*
 fake-modules-code/*
 .DS_Store
+.sentinel
