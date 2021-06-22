@@ -36,7 +36,7 @@ validate_certs = func(certs, parent_domain) {
 # Call the validation function
 # Pass it a list of ACM certs and a regex to match
 certs_validated = validate_certs(allACMCerts, "(.+)\\.hashidemos\\.io$")
-
+#certs_validated = validate_certs(allACMCerts, "\\.hashidemos\\.io$")
 # Main rule that evaluates the result of the validation function
 main = rule {
   certs_validated

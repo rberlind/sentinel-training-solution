@@ -22,6 +22,9 @@ for allIAMAccessKeys as address, key {
     violatingIAMAccessKeys[address] = key
     print(address, "does not have the pgp_key attribute set")
   } else if not strings.has_prefix(pgp_key, "keybase:") {
+ #} else if ! strings.has_prefix(pgp_key, "keybase:") {
+ #} else if strings.has_prefix(pgp_key, "keybase:") == false {
+ #} else if strings.has_prefix(pgp_key, "keybase:") is false {
     violatingIAMAccessKeys[address] = key
     print(address, "has attribute pgp_key with value", pgp_key,
           "that does not start with 'keybase:'")
